@@ -22,7 +22,7 @@ public class UserController {
         return "user-registration"; // Assuming the Thymeleaf template is named "user-registration.html"
     }
 
-    // User Registration
+    // User Registration     
     @PostMapping("/register")
     //public String registerUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
      //   User registeredUser = userService.registerUser(user);

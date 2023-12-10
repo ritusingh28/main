@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 @Service
-
+        
 public class UserServices {
 
 	private static final int PASSWORD_LENGTH = 8;

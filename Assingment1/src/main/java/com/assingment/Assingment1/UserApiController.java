@@ -21,7 +21,7 @@ public class UserApiController {
     }
 
     // User Update
-    @PutMapping("/update")
+    @PutMapping("/update")    
     public ResponseEntity<User> updateUser(@RequestBody User updatedUser) {
         User updated = userService.updateUser(updatedUser);
         return new ResponseEntity<>(updated, HttpStatus.OK);
