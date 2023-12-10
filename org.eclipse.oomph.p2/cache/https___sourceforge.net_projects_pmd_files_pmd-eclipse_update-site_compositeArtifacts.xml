@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?compositeArtifactRepository version='1.0.0'?>
+<repository name='PMD Eclipse Plugin Releases Repository' type='org.eclipse.equinox.internal.p2.artifact.repository.CompositeArtifactRepository' version='1.0.0'>
+    <properties size='0'>
+    </properties>
+    <children size='1'>
+        <child location='https://dl.bintray.com/pmd/pmd-eclipse-plugin/updates/'/>
+    </children>
+</repository>
+

@@ -1,0 +1,30 @@
+<!-- user-edit.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+</head>
+<body>
+
+    <h2>Edit User</h2>
+
+    <form th:action="@{'/users/update/' + ${user.id}}" th:object="${user}" method="post">
+        <!-- Form fields with pre-filled values -->
+        <input type="hidden" th:field="*{id}" /> <!-- Hidden field for user ID -->
+
+        <label for="userName">Username:</label>
+        <input type="text" id="userName" th:field="*{userName}" />
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" th:field="*{password}" />
+
+        <!-- Add other fields as needed -->
+
+        <button type="submit">Update</button>
+    </form>
+
+    <a th:href="@{'/users/getAll'}">Back to User List</a>
+
+</body>
+</html>

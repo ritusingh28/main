@@ -1,0 +1,46 @@
+package com.assingment.Assingment1;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/user-form")
+public class UserFormServlet extends HttpServlet {
+ protected void doGet(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
+	 UserServices userRepository = new UserServices();
+
+     String idParam = request.getParameter("id");
+     if (idParam != null && !idParam.isEmpty()) {
+         Long userId = Long.parseLong(idParam);
+         User user = userRepository.getUserById(userId);
+         request.setAttribute("user", user);
+     } else {
+         request.setAttribute("user", new User());
+     }
+
+     request.getRequestDispatcher("/WEB-INF/userForm.jsp").forward(request, response);
+ }
+
+ protected void doPost(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
+	 UserServices userRepository = new UserServices();
+
+     Long id = Long.parseLong(request.getParameter("id"));
+     String userName = request.getParameter("userName");
+     String password = request.getParameter("password");
+
+     User user = new User(userName, password);
+     if (id == 0) {
+         userRepository.registerUser(user);
+     } else {
+         userRepository.updateUser(user);
+     }
+
+     response.sendRedirect(request.getContextPath() + "/user-list");
+ }
+}
+

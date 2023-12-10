@@ -1,0 +1,30 @@
+package com.Userdemo.UserDemo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+@RestController
+@RequestMapping("/users")
+
+public class UserController {
+	@Autowired
+    private UserRepo userRepo;
+	@PostMapping("/register")
+    public void registerUsers(@RequestBody List<UserEntity> users) {
+        userRepo.saveAll(users);
+    }
+	 @GetMapping("/{userName}")
+	    public UserEntity getUser(@PathVariable String userName) {
+	        return userRepo.findByUserName(userName)
+	                .orElseThrow(() -> new UserNotFoundException("User not found"));
+	    }
+	 @PutMapping("/update")
+	    public void updateUser(@RequestBody UserEntity user) {
+	        userRepo.save(user);
+	    }
+	 @DeleteMapping("/delete/{userName}")
+	    public void deleteUser(@PathVariable String userName) {
+	        userRepo.deleteByUserName(userName);
+	    }
+
+
+}

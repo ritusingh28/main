@@ -1,0 +1,26 @@
+<!-- user-registration.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+</head>
+<body>
+
+    <h2>User Registration</h2>
+
+    <form th:action="@{'/webapp/users/register'}" th:object="${user}" method="post">
+        <!-- Add form fields as needed -->
+        <label for="userName">Username:</label>
+        <input type="text" id="userName" th:field="*{userName}" />
+
+        <label for="password">Password:</label>
+        <input type="text" id="password" th:field="*{password}" />
+
+        <button type="submit">Register</button>
+    </form>
+
+    <a th:href="@{'/users/getAll'}">Back to User List</a>
+
+</body>
+</html>

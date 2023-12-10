@@ -1,0 +1,30 @@
+<!-- user-view.html -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User View</title>
+</head>
+<body>
+
+    <h2>User Details</h2>
+
+    <dl>
+        <dt>ID:</dt>
+        <dd th:text="${user.id}"></dd>
+
+        <dt>Username:</dt>
+        <dd th:text="${user.userName}"></dd>
+        
+        <dt>Password:</dt>
+        <dd th:text="${user.password}"></dd>
+        <!-- Add other fields as needed -->
+    </dl>
+
+    <a th:href="@{'/webapp/users/getById/' + ${user.id}}">Edit</a>
+    <a th:href="@{'/webapp/users/delete/' + ${user.id}}">Delete</a>
+    <a th:href="@{'/webapp/users/getAll'}">Back to List</a>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+package com.assingment.Assingment1;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Random;
+
+@Service
+
+public class UserServices {
+
+    private static final int PASSWORD_LENGTH = 8;
+
+    @Autowired
+    private UserRepo userRepository;
+
+    // User Registration
+    public User registerUser(User user) {
+        // Generate and set password
+        user.setPassword(generatePassword());
+
+        // Perform user registration
+        return userRepository.save(user);
+    }
+
+    // User Update
+    public User updateUser(User updatedUser) {
+        // Check if the user exists
+        User existingUser = userRepository.findById(updatedUser.getId())
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        // Update user properties
+        existingUser.setUserName(updatedUser.getUserName());
+        existingUser.setPassword(updatedUser.getPassword());
+
+        // Save the updated user
+        return userRepository.save(existingUser);
+    }
+
+ // User Deletion
+    public void deleteUser(Long userId) {
+        // Check if the user exists
+        userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        // Delete the user
+        userRepository.deleteById(userId);
+    }
+
+    // Password Generation
+    private String generatePassword() {
+        // Implement your strong password generation logic here
+        // Example: Generate a random alphanumeric password of length PASSWORD_LENGTH
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder password = new StringBuilder();
+        Random random = new Random();
+
+        for (int i = 0; i < PASSWORD_LENGTH; i++) {
+            password.append(characters.charAt(random.nextInt(characters.length())));
+        }
+
+        return password.toString();
+    }
+
+    // Bulk User Registration with MultiThreading
+    @Transactional
+    public void bulkRegisterUsers(List<User> users) {
+        // Implement multi-threaded bulk user registration logic here
+        users.parallelStream().forEach(this::registerUser);
+    }
+
+	public User getUserByUserName(String userName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	
+
+	
+    // Additional methods if needed
+
+
+
+}

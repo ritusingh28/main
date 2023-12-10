@@ -1,0 +1,40 @@
+<!-- user-list.html -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+</head>
+<body>
+
+    <h2>User List</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Password</th>              
+                <!-- Add other fields as needed -->
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterate over the list of users -->
+            <tr th:each="user : ${users}">
+                <td th:text="${user.userName}"></td>
+                <td th:text="${user.password}"></td>              
+                <!-- Add other fields as needed -->
+                <td>
+                    <a th:href="@{'/webapp/users/getById/' + ${user.id}}">Edit</a>
+                    <a th:href="@{'/webapp/users/delete/' + ${user.id}}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{'/webapp/users/register'}">Add User</a>
+    <a th:href="@{'/webapp/users/register'}">Bulk User Register</a>
+
+</body>
+</html>

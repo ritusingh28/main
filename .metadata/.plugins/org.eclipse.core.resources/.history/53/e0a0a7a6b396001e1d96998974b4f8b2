@@ -1,0 +1,18 @@
+<!-- user-not-found.html -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Not Found</title>
+</head>
+<body>
+
+    <h2>User Not Found</h2>
+
+    <p>The requested user was not found.</p>
+
+    <a th:href="@{'/users/getAll'}">Back to List</a>
+
+</body>
+</html>

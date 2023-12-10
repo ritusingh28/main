@@ -1,0 +1,82 @@
+package com.assingment.Assingment1;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.util.List;
+
+@Controller
+@RequestMapping("/webapp/users")
+public class UserController {
+
+    @Autowired
+    private UserServices userService;
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("user", new User());
+        return "user-registration"; // Assuming the Thymeleaf template is named "user-registration.html"
+    }
+
+    // User Registration
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
+        User registeredUser = userService.registerUser(user);
+        redirectAttributes.addFlashAttribute("user", registeredUser);
+        return "redirect:/webapp/users/getAll";
+    }
+
+    // User Update
+    @PostMapping("/update")
+    public String updateUser(@ModelAttribute User updatedUser, RedirectAttributes redirectAttributes) {
+        User updated = userService.updateUser(updatedUser);
+        redirectAttributes.addFlashAttribute("user", updated);
+        return "redirect:/webapp/users/getAll";
+    }
+
+    // User Deletion
+    @GetMapping("/delete/{userId}")
+    public String deleteUser(@PathVariable Long userId) {
+        userService.deleteUser(userId);
+        return "redirect:/webapp/users/getAll";
+    }
+
+    // User Retrieval
+    @GetMapping("/get/{userName}")
+    public String getUser(@PathVariable String userName, Model model) {
+        User user = userService.getUserByUserName(userName);
+        model.addAttribute("user", user);
+        return "user-view";
+    }
+
+    // Bulk User Registration
+    @PostMapping("/bulk-register")
+    public String bulkRegisterUsers(@ModelAttribute List<User> users, RedirectAttributes redirectAttributes) {
+        userService.bulkRegisterUsers(users);
+        redirectAttributes.addFlashAttribute("message", "Bulk registration completed successfully");
+        return "redirect:/webapp/users/getAll";
+    }
+
+    // Retrieve user by ID
+    @GetMapping("/getById/{userId}")
+    public String getUserById(@PathVariable Long userId, Model model) {
+        User user = userService.getUserById(userId);
+        if (user != null) {
+            model.addAttribute("user", user);
+            return "user-edit";
+        } else {
+            return "user-not-found";
+        }
+    }
+
+    // Retrieve all users
+    @GetMapping("/getAll")
+    public String getAllUsers(Model model) {
+        List<User> userList = userService.getAllUsers();
+        model.addAttribute("users", userList);
+        return "user-list";
+    }
+
+    // Additional methods if needed
+}
