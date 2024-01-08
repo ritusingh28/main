@@ -1,0 +1,17 @@
+type Query {
+    getAllUserDetails: [UserDetail]
+}
+
+type Mutation {
+    createUserDetail(username: String, password: String, mobileNumber: String, dateOfBirth: String): UserDetail
+    updateUserDetail(id: ID!, username: String, password: String, mobileNumber: String, dateOfBirth: String): UserDetail
+    deleteUserDetail(id: ID!): Boolean
+}
+
+type UserDetail {
+    id: ID!
+    username: String
+    password: String
+    mobileNumber: String
+    dateOfBirth: String
+}
